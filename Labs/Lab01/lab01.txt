@@ -1,0 +1,21 @@
+Luis Felipe Tomazini
+CSCI206
+Lab01
+01/19/2016
+
+1. mkdir -p ~/csci206/Labs/Lab01
+2.
+	cat: reads files sequentially and writes them to the standard output
+
+	more: is a filter for go from a page to another one screenful at a time
+
+	less: is similar to more, but allows both forward and backward movement in the file
+
+	head: is a filter that displays the first count lines or bytes of the specified files, or standard input
+
+	tail: displays the content of file or standard input to the standard output
+
+3. emacs -nw
+4. :set nu
+5. M-x linum-mode
+6. After careful consideration, I will use vim in csci206 as my text editor.
