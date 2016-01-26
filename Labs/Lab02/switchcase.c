@@ -2,7 +2,7 @@
  * T 1pm
  * lab 02 - salary.c
  * compile with: make switchcase
- * notes: COnverts a string to uppercase
+ * notes: Converts a string to uppercase
  */
 #include <stdio.h>
 #include <string.h>
@@ -17,7 +17,8 @@ int main(void){
     while ( fgets(string, MAX_STRING_SIZE, stdin) ){
 
         /* convert the string here */
-        for (int i = 0; i < strlen(string); i++){
+        int i=0;
+	for (i = 0; i < MAX_STRING_SIZE; i++){
             string[i] = toupper(string[i]);
         }
 
