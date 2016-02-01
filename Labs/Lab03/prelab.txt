@@ -1,0 +1,77 @@
+1. a) add the -g option
+
+   b) type b 50
+
+   c) disp count
+
+   d) set variable count = 42
+
+2. $at
+   It is an assembler temporary register. It is reserved by the assembler for use with pseudo instructions. Are not preserved across procedure calls.
+
+   $a0 - $a3
+   Used as arguments. They are not preserved across procedure calls.
+   addi $a0, $zero, 10
+
+   $t0 - $t9
+   Are temporary registers. They are not preserved across procedure calls. Subroutines may use them without saving.
+   lw $t1, 8 ($t0)
+
+   $s0 - $s7
+   Are saved temporary values. They are preserved across procedure calls. Subroutines that use these registers must save original and restore it before it exits.
+   addu $s0, $s0, $t0
+
+   $gp
+   It is the global pointer register. It is used to reference global variables. It is preserved across procedure calls.
+
+   $sp
+   It is the stack pointer. It points to the top of the stack. It contains the address of valid data.
+   sw $v0, (%sp)
+
+3.
+   2. addi $s1, $s3, 2
+      a) Adds an immediate value to the source register; stores the result into the destination register. Effectively: $s1 = $s3 + 2
+
+      b) Source register: $s3
+
+      c) Destination register: $s1
+
+   3. lw $t6, 4($s0)
+      a) The word from the source register is load into the destination register. There is also the offset, in this case: 4
+
+      b) Source register: $s0
+
+      c) Destination register: $t6
+
+   4. add $t3, $s1, $s2
+      a) Adds the values contained in the two source registers; stores the result into the destination register. Effectively: $t3 = $s1 + $s2
+
+      b) Source Registers: $s1, $s2
+
+      c) Destination Register: $t3
+
+   5. sub $v0, $t1, $s2
+      a) Subtract the values contained in the two source registers; stores the result into the destination register. Effectively: $v0 = $t1 - $s2
+
+      b) Source Registers: $t1, $s2
+
+      c) Destination Register: $v0
+
+4. a) 59/2 = 29 | 1
+      29/2 = 14 | 1
+      14/2 = 7  | 0
+       7/2 = 3  | 1 
+       3/2 = 1  | 1 ^
+       1/2 = 0  | 1 |  59 = 0b 0001 1011
+
+   b) 1011 1011
+       B    B       |  0b 1011 1011 = 0x BB
+
+   c) 129/16 = 8 | 1 ^
+        8/16 = 0 | 8 |  129 = 0x 81
+
+   d) F    E    E    D    B    E    E    F
+      1111 1110 1110 1101 1011 1110 1110 1111  | 0x FEEDBEEF = 0b 1111 1110 1110 1101 1011 1110 1110 1111
+
+   e) 0   7   4   3
+      000 111 100 011 | O 0743 = 0b 111 100 011
