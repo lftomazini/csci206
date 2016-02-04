@@ -1,4 +1,3 @@
-
 # CSCI 206 Computer Organization & Programming
 # Date: 2011-08-29
 # Copyright (c) 2011 Bucknell University
@@ -43,8 +42,7 @@ loop:
 	ble		$t0, 10, loop		# creates the loop, by branching with 'less then or equal to' 10 and goes back to 'loop' (line 40)
 
 	la		$t2, x			# copy RAM address from variable 'x' to $t2 
-	sw		$t1, 0($t2)		# store word in register $t1 into RAM at address contained in1 $t2
+	sw		$t1, 0($t2)		# store word in register $t1 into RAM at address contained in $t2
 	
 	li		$v0, 10			# system call for exit
 	syscall					# Exit!
-
