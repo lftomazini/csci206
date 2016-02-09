@@ -1,7 +1,0 @@
-CC=gcc
-CFLAGS=-Wall
-DEPS=fileio.h
- 
-%.o: %.c $(DEPS)
-	$(CC) $(CFLAGS) -c -o $@ $<
-
