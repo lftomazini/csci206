@@ -29,7 +29,7 @@ int read_file_bytes (char* filename, int bytes, char* buffer) {
 	ssize_t bytes_read = read(file, buffer, bytes);
 
 	//adds null terminator
-	buffer[bytes_read] = '\0';
+	buffer[bytes] = '\0';
 	
 	// close file
 	close(file);
