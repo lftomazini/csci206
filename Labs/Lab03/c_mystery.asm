@@ -1,4 +1,8 @@
-	.file	1 "c_mystery.c"
+# Luis Felipe Tomazini
+# T 1pm
+# lab 03 - c_mystery.asm
+
+.file	1 "c_mystery.c"
 	.section .mdebug.abi32
 	.previous
 	.gnu_attribute 4, 3
