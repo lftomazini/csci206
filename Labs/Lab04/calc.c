@@ -1,7 +1,7 @@
 /* Luis Felipe Tomazini
  * T 1pm
  * lab 02 - calc.c
- * compile with: 
+ * compile with: make calc
  * notes: A simple calculator
  */
 #include <stdio.h>
