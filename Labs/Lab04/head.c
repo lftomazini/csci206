@@ -1,8 +1,8 @@
 /* Luis Felipe Tomazini
  * T 1pm
  * lab 04 - head.c
- * compile with: make calc
- * notes:
+ * compile with: make head
+ * notes: Reads a file
  */
 
 
