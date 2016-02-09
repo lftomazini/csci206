@@ -1,6 +1,6 @@
 /* Luis Felipe Tomazini
  * T 1pm
- * lab 02 - calc.c
+ * lab 04 - calc.c
  * compile with: make calc
  * notes: A simple calculator
  */
