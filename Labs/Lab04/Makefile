@@ -1,9 +1,14 @@
 CC=gcc
 CFLAGS=-Wall
 DEPS=fileio.h
- 
+
+all: head2 head3
+
 head2: head2.o fileio.o
 	$(CC) $(CFLAGS) head2.o fileio.o -o head2
+
+head3: head3.o fileio.o
+	$(CC) $(CFLAGS) head3.o fileio.o -o head3
 
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<

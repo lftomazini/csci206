@@ -10,13 +10,9 @@
 #include <string.h>
 #include "fileio.h"
 
-#define MAXBYTES 1024
-#define MAXLINES 10
-
 int main(int argc, char* argv[]) {
-    int readbytes = 1024;        // default to 1024 bytes
     int readlines = 10;         // default to 10 lines
-    char buffer[MAXLINES*MAXBYTES+1];    // buffer to hold file data
+    char buffer[10][MAXBYTES+1];    // buffer to hold file data
 
     if (argc < 1){
         // missing required argument
@@ -25,8 +21,11 @@ int main(int argc, char* argv[]) {
         exit(-1);
     }
 
-    if (read_file_lines (argv[1], readlines, readbytes, buffer) >= 0){
-        printf("%s\n", buffer);
+    if (read_file_lines (argv[1], buffer) >= 0){
+        int i = 0;
+        for (i = 0; i < readlines; i++) {
+            printf("%s", buffer[i]);
+        }
     } else {
         printf("Error: could not read file!\n");
         exit(-3);

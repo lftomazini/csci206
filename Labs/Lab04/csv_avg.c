@@ -24,7 +24,9 @@ char names[MAXCOLS][MAXLEN];
 float average(int numrows, int col, float data[MAXROWS][MAXCOLS])
 {
     float result = 0;
-    // TODO: compute average (mean) of the given column (col) in data.
+    for (int i = 0; i < numrows; i++) {
+        result += (data[i][col]-result)/(i+1);
+    }
     return result;
 }
 

@@ -1,16 +1,16 @@
--—creat(2)—
+--creat(2)--
 creates a new file or rewrites an existing one
 takes as parameters the file path and a permission. This function is redundant as open() implements all its functionalities
 
-—-open(2)—
+--open(2)—-
 open or creates a file that can be read or wrote
 takes as parameters the filename, the access (read only, write only, binary) and the permission.
 
-—-read()—-
+--read()—-
 reads up to a number of bytes in a file and output it in a buffer
 takes as parameters a handle (the return from open()), the buffer to be written and the number of bytes to be read.
 
-—-write(2)—-
+--write(2)—-
 writes up to a number of bytes from a buffer into a file
 takes as parameters a handle (the return from open()), the buffer to be read and the number of bytes to be read.
 
