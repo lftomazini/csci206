@@ -55,9 +55,6 @@ int read_file_lines (char* filename, char buffer[MAXLINES][MAXBYTES+1]) {
     for (i = 0; i < MAXLINES; i++){
         // read up to bytes
         fgets (buffer[i], MAXBYTES, file);
-        
-        // move to next line
-        //fseek (file, bytes, SEEK_CUR);
     }
     
     //close file
@@ -67,35 +64,48 @@ int read_file_lines (char* filename, char buffer[MAXLINES][MAXBYTES+1]) {
     return (i >= 0) ? i : -1;
 }
 
-//int read_csv_row (FILE* fd, char row_strings[][]) {
-//    int i = 0;
-//    
-//    if (row = fgets(row_strings[][i], MAXLEN, fd) != NULL) {
-//        data = strtok(row,",");
-//        while (data != NULL) {
-//            row_strings[i][j++] = atof(data);
-//            data = strtok(row, ",");
-//        }
-//    }
-//    
-//    int columns_read = j;
-//
-//    
-//    return (columns_read >= 0) ? columns_read : -1;
-//}
-//
-//int read_csv_cols (FILE* fd, float data[][]) {
-//    char tmp_row[MAXCOLS][MAXLEN];
-//    row = 0;
-//    do {
-//        int columns = read_csv_row (fd, tmp_row)
-//        if (columns == -1) {
-//            break;
-//        } else {
-//            
-//        }
-//    } while (row++);
-//}
+int read_csv_row(FILE* fd, char row_strings[MAXCOLS][MAXLEN]) {
+    if(line = (fgets(row_strings[][], MAXLEN, fd)) != NULL) {
+        // strip trailing newline from line
+        line[strlen(line)-1] = 0;
+        
+        // tokenize line upto MAXCOLS
+        char* data;
+        data = strtok(line,",");
+        // remove " "
+        while (data[0] == ' ') {
+            data++;
+        }
+        // store in original
+        srtcpy(row_strings[][0], data); // which line?
+        
+        while(data = strtok(NULL, ",")) != NULL)
+            // remove " "
+            while (data[0] == ' ') {
+                data++;
+            }
+            // store in original
+        
+        // strip leading spaces from each token
+        
+        // return number of tokens [0...MAXCOLS] read, -1 if fgets failed (EOF).
+        
+    }
+}
+
+int read_csv_cols (FILE* fd, float data[MAXROWS][MAXCOLS]) {
+    char tmp_row[MAXCOLS][MAXLEN];
+    row = 0;
+    do {
+        n = read_csv_row (fd, tmp_row); // returns number of cols
+        if (n == -1) {
+            break;
+        } else {
+            iterate over columns in tmp_row
+            data[row][col] = atof(tmp_row[col]);
+    }while(true);
+    return row; // number of rows read.
+}
 
 
 
