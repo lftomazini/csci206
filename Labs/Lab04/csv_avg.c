@@ -24,8 +24,11 @@ char names[MAXCOLS][MAXLEN];
 float average(int numrows, int col, float data[MAXROWS][MAXCOLS])
 {
     float result = 0;
+    int elements = 0;
     for (int i = 0; i < numrows; i++) {
-        result += (data[i][col]-result)/(i+1);
+        if (!isnan(data[i][col])) {
+            result += (data[i][col]-result)/(++elements);
+        }
     }
     return result;
 }

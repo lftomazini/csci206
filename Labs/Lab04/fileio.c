@@ -69,23 +69,27 @@ int read_csv_row(FILE* fd, char row_strings[MAXCOLS][MAXLEN]) {
         // strip trailing newline from line
         line[strlen(line)-1] = 0;
         
-        // tokenize line upto MAXCOLS
         char* data;
-        data = strtok(line,",");
-        // remove " "
-        while (data[0] == ' ') {
-            data++;
-        }
-        // store in original
-        srtcpy(row_strings[][0], data); // which line?
-        
-        while(data = strtok(NULL, ",")) != NULL)
+        if (!(isnan(data))) {
+            // tokenize line upto MAXCOLS
+            data = strtok(line,",");
             // remove " "
             while (data[0] == ' ') {
                 data++;
             }
-            // store in original
+        }
         
+        // store in original
+        srtcpy(row_strings[][0], data); // which line?
+        
+        if (!(isnan(data))) {
+            while(data = strtok(NULL, ",")) != NULL)
+                // remove " "
+                while (data[0] == ' ') {
+                    data++;
+                }
+                // store in original
+        }
         // strip leading spaces from each token
         
         // return number of tokens [0...MAXCOLS] read, -1 if fgets failed (EOF).
