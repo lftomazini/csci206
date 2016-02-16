@@ -1,0 +1,30 @@
+Segment     |    Start    |     End     |     Size
+------------+-------------+-------------+-------------
+Stack       | 0x7fff ff86 | 0x7fff ffff | 0x0000 007a
+Heap        |             |             |
+Data        | 0x0040 0100 | 0x0040 0760 | 0x0000 0198     squares = 400 bytes | sum = 4 bytes | i = 4 bytes
+Text        | 0x0040 0000 | 0x0040 00ff | 0x0000 0100
+
+* note all addresses are inclusive.
+
+Exercise 2
+1. li	$v0, 5
+   syscall
+   add	$t0, $v0, $zero
+
+2. li	$v0, 1		#sure
+   add	$a0, $t0, $zero
+   syscall
+
+3. li	$v0, 8
+   la	$a0, my_str
+   syscall
+
+4. li	$v0, 4		#sure
+   la	$a0, prompt
+   syscall
+
+5. li	$v0, 17
+   addi	$a0, $zero, -1
+   syscall
+
