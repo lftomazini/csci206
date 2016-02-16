@@ -1,13 +1,14 @@
 /* Luis Felipe Tomazini
  * T 1pm
  * lab 04 - fileio.c
- * compile with: make head
+ * compile with: make
  * notes: Reads file bytes
  */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
 #include "fileio.h"
 
 /*
@@ -64,50 +65,79 @@ int read_file_lines (char* filename, char buffer[MAXLINES][MAXBYTES+1]) {
     return (i >= 0) ? i : -1;
 }
 
+
+//int read_csv_row(FILE* fd, char row_strings[MAXCOLS][MAXLEN]) {
+//    char* buffer;
+//    if (fgets(buffer, MAXLEN, fd) != NULL){
+//        buffer = strtok(buffer, ",");
+//        int i = 0;
+//        while ((buffer = strtok(NULL, ",")) != NULL) {
+//            //strip trailing newline from line
+//            buffer[strlen(buffer)-1] = '\0';
+//            //tokenize line upto MAXCOLS
+//
+//        }
+//
+//        
+//        buffer = strtok(line,",");
+//        strip leading spaces from each token
+//        strncopy each token into row_strings[col]
+//    }
+//    return number of tokens [0...MAXCOLS] read, -1 if fgets failed (EOF).
+//}
+
+
 int read_csv_row(FILE* fd, char row_strings[MAXCOLS][MAXLEN]) {
-    if(line = (fgets(row_strings[][], MAXLEN, fd)) != NULL) {
+    char* line;
+    if ((fgets(line, MAXLEN, fd)) != NULL) {
         // strip trailing newline from line
-        line[strlen(line)-1] = 0;
+        line[strlen(line)-1] = '\0';
         
         char* data;
-        if (!(isnan(data))) {
-            // tokenize line upto MAXCOLS
-            data = strtok(line,",");
-            // remove " "
-            while (data[0] == ' ') {
-                data++;
-            }
+        // tokenize line upto MAXCOLS
+        data = strtok(line,",");
+        // remove " "
+        while (data[0] == ' ') {
+            data++;
         }
         
         // store in original
-        srtcpy(row_strings[][0], data); // which line?
+        strcpy(row_strings[][0], data); // which line?
         
-        if (!(isnan(data))) {
-            while(data = strtok(NULL, ",")) != NULL)
-                // remove " "
-                while (data[0] == ' ') {
+        int i = 0;
+        while((data = strtok(NULL, ",")) != NULL)
+            // remove " "
+            while (data[0] == ' ') {
                     data++;
-                }
-                // store in original
+            }
+            // store in original
+            strcpy(row_strings[][++i], data); // which line?
         }
+    
         // strip leading spaces from each token
-        
+        while (data[0] == ' ') {
+            data++;
+        }
+    
         // return number of tokens [0...MAXCOLS] read, -1 if fgets failed (EOF).
-        
-    }
+        return (i == 0) ? -1 : i;
 }
 
 int read_csv_cols (FILE* fd, float data[MAXROWS][MAXCOLS]) {
     char tmp_row[MAXCOLS][MAXLEN];
-    row = 0;
+    int row = 0;
     do {
-        n = read_csv_row (fd, tmp_row); // returns number of cols
+        int n = read_csv_row (fd, tmp_row); // returns number of cols
         if (n == -1) {
             break;
         } else {
-            iterate over columns in tmp_row
-            data[row][col] = atof(tmp_row[col]);
-    }while(true);
+            //iterate over columns in tmp_row
+            int col = 0;
+            for (col = 0; col < MAXCOLS; col++){
+                data[row][col] = atof(tmp_row[col]);
+            }
+        }
+    } while(1);
     return row; // number of rows read.
 }
 
