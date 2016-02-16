@@ -92,7 +92,7 @@ int read_csv_row(FILE* fd, char row_strings[MAXCOLS][MAXLEN]) {
                     data++;
             }
             // store in original
-            strcpy(row_strings[++i], data);
+            strcpy(row_strings[i++], data);
         }
     
         // return number of tokens [0...MAXCOLS] read, -1 if fgets failed (EOF).

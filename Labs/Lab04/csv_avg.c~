@@ -49,16 +49,21 @@ int main(int argc, char* argv[])
     // open the file to use the standard IO library.
     FILE *fd = fopen(argv[1], "r");
     // read the column names
+    printf("file read\n");
     if ( (cols = read_csv_row(fd, names)) < 0){
         printf("Failed to read names from CSV file.\n");    
         exit(-2);
     }else{
+printf("going to else\n");
 #ifdef DEBUG
         // #define DEBUG to see debug output 
         // or compile with gcc -DDEBUG
-        int i;      
+        int i;
+	printf("will print col\n");
+        
         for (i=0; i<MAXCOLS; i++){
             printf("Col[%03d]: %s\n", i, names[i]);
+	printf(" printed col\n");
         }
 #endif        
     }

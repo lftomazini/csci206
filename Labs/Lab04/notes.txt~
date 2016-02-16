@@ -1,6 +1,8 @@
 /* Luis Felipe Tomazini
  * T 1pm
  * lab 04 - notes.txt
+ * compile with: make head
+ * notes: Reads a file
  */
 
 --creat(2)--
