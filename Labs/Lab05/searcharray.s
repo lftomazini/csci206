@@ -42,8 +42,8 @@ notfound:
 init:
 	li 	$s3, 0 		# store 0 in i
 	sw 	$s3, ivar
-	li 	$s5, 7 		# store 7 in k
-	sw 	$s5, kvar
+	#li 	$s5, 7 		# store 7 in k
+	#sw 	$s5, kvar
 	
 	li	$v0, 4		# asks the user for a value
 	la	$a0, prompt
@@ -59,11 +59,12 @@ init:
 test:
 	# reserve $t1 for byte offset of save array
 	add	$t1, $zero, $s3 	# $t1 = i
-	sll	$t1, $t1, 2 		# cnvert index to byte addres (multiply $t1 by 4)
+	sll	$t1, $t1, 2 		# convert index to byte addres (multiply $t1 by 4)
 	add	$t1, $t1, $s4		# $t1 = &save[0] + $t1 (byte address of save[i])
 	lw	$t2, 0($t1)		# $t2 = save[i]
 	beq	$t2, $t0, terminate
 	addi	$s3, $s3, 1
+	
 	beq	$s3, 10, nothingfound	# if i == 10 it should end
 	j	test
 	 
@@ -81,6 +82,7 @@ terminate:
 	
 nothingfound:
 	la	$a0, notfound
+	li	$v0, 4
 	syscall
 	
 	li 	$v0, 10 		# terminate program
