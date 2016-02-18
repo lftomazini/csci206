@@ -35,9 +35,11 @@ A:	.word 5 4 3 2 4 1 0	# declare array int A[]={5,4,3,2,4,1,0};
 	.text	
 main:				# This symbols marks the first instruction of your program
 
-#
-# Add your code here
-#
+	move $t0, $zero
+	lw $t1, A($t0)		# assembler uses address of A as offset, $t0 as
+				# base – adding them together yields address of
+				# the first element in array
+	addi $t0, $t0, 4	# adjusting the base to “see” next element			
 
 	li	$v0, 10		# system call for exit
 	syscall			# Exit!
