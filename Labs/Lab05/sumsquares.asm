@@ -29,7 +29,7 @@ load_values:
 		add	$t1, $zero, $s3 	# $t1 = i
 		sll	$t1, $t1, 2 		# convert index to byte addres (multiply $t1 by 4)
 		add	$t1, $t1, $s4		# $t1 = &squares[0] + $t1 (byte address of squares[i])
-		mulou	$t2, $s3, $s3
+		mul.s	$t2, $s3, $s3
 		lw	$t2, 0($t1)		# $t2 = squares[i]
 		
 		add	$s5, $s5, $t2
