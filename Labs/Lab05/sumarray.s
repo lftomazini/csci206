@@ -31,15 +31,39 @@
 
 	.data
 A:	.word 5 4 3 2 4 1 0	# declare array int A[]={5,4,3,2,4,1,0};
-
-	.text	
+count:
+.asciiz "Number of elements = "
+sum:
+.asciiz " and the summation =  "	
+	.text
 main:				# This symbols marks the first instruction of your program
 
-	move $t0, $zero
-	lw $t1, A($t0)		# assembler uses address of A as offset, $t0 as
-				# base – adding them together yields address of
-				# the first element in array
-	addi $t0, $t0, 4	# adjusting the base to “see” next element			
+	move	$t0, $zero	
+	lw	$t1, A($t0)	# assembler uses address of A as offset, $t0 as base - adding them together yields address of the first element in array
+search:	
+	beq	$t1, $zero, end
+	addi	$t0, $t0, 4	# adjusting the base to “see” next element
+	add	$s0, $s0, $t1 
+	addi	$s1, $s1, 1	#increase count	
+	lw	$t1, A($t0)
+	j	search
+
+end:
+	la	$a0, count
+	li	$v0, 4
+	syscall
+	
+	add	$a0, $zero, $s1	# print value of count
+	li	$v0, 1
+	syscall
+	
+	la	$a0, sum
+	li	$v0, 4
+	syscall
+	
+	add	$a0, $zero, $s0	# print value of sum
+	li	$v0, 1
+	syscall
 
 	li	$v0, 10		# system call for exit
 	syscall			# Exit!
