@@ -6,7 +6,7 @@
 
 sum:		.word 	0
 ivar:		.word	0
-squares:	.space	100	
+squares:	.space	400	
 equals_string:	.asciiz "] = "
 squares_string:	.asciiz "squares ["
 newline:	.asciiz "\n"
@@ -44,22 +44,23 @@ load_values:
 	load_end:
 	
 print_values:
+	li	$t9 100				# sets branching stop condition to 100
 	li	$s3, 0				# sets i back to 0
 	lw	$s7, 0($s4)			# loads first element of the array
-	move	$t0, $zero
+	move	$t0, $zero			# sets offset as 0
 	print_begin:
 		ble	$t9, $s3, print_end	
 		la	$a0, squares_string	# print first part of string
 		li	$v0, 4
-		#syscall
+		syscall
 	
 		add	$a0, $zero, $s3		# print value of i
 		li	$v0, 1
-		#syscall
+		syscall
 	
 		la	$a0, equals_string	# print second part of the string
 		li	$v0, 4
-		#syscall
+		syscall
 		
 		add	$a0, $zero, $s7		# print value of squares[i]
 		li	$v0, 1
