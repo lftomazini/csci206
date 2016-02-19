@@ -23,21 +23,11 @@ init:
 load_values:
 	li	$t9 100				# sets branching stop condition to 100
 	move	$t0, $zero			# sets offset as 0
-	#lw	$t1, squares($t0)
 	load_begin:
 		ble	$t9, $s3, load_end	
-		
-		li	$t2, 0			# result of multiplication is initialized with 0
-		move	$s6, $s3
-	mult_begin:				# function to multiply
-		beq	$s6, $zero, mult_end
-		add	$t2, $t2, $s3
-		addi	$s6, $s6, -1
-		j	mult_begin
-	mult_end:	
+		mulo	$t2, $s3, $s3		# i * i
 		sw	$t2, squares($t0)	# saves result in squares[i]
 		add	$s5, $s5, $t2		# adds value in sum
-		
 		addi	$t0, $t0, 4		# adjust to the next element
 		addi	$s3, $s3, 1		#increment i
 		j	load_begin
