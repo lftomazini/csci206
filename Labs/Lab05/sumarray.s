@@ -19,7 +19,9 @@
 # THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 #
-# Student name:
+# Student name: Luis Felipe Tomazini
+#               T 1pm
+#               Lab 05 - sumarray.s
 #
 # This program calculates the sum of the values in array A and counts
 # the number of values in the array.
@@ -41,11 +43,11 @@ main:				# This symbols marks the first instruction of your program
 	move	$t0, $zero	
 	lw	$t1, A($t0)	# assembler uses address of A as offset, $t0 as base - adding them together yields address of the first element in array
 search:	
-	beq	$t1, $zero, end
+	beq	$t1, $zero, end	# verifies if element is sentinel
 	addi	$t0, $t0, 4	# adjusting the base to “see” next element
-	add	$s0, $s0, $t1 
-	addi	$s1, $s1, 1	#increase count	
-	lw	$t1, A($t0)
+	add	$s0, $s0, $t1 	# add current element to sum
+	addi	$s1, $s1, 1	# increase count	
+	lw	$t1, A($t0)	# get next element
 	j	search
 
 end:

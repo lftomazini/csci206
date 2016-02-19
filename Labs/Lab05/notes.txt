@@ -1,3 +1,8 @@
+Luis Felipe Tomazini
+T 1pm
+Lab 05 - notes.txt
+
+
 Segment     |    Start    |     End     |     Size
 ------------+-------------+-------------+-------------
 Stack       | 0x7fff ff86 | 0x7fff ffff | 0x0000 007a
@@ -12,7 +17,7 @@ Exercise 2
    syscall
    add	$t0, $v0, $zero
 
-2. li	$v0, 1		#sure
+2. li	$v0, 1
    add	$a0, $t0, $zero
    syscall
 
@@ -20,7 +25,7 @@ Exercise 2
    la	$a0, my_str
    syscall
 
-4. li	$v0, 4		#sure
+4. li	$v0, 4
    la	$a0, prompt
    syscall
 

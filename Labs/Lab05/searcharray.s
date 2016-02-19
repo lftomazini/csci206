@@ -19,7 +19,9 @@
 # THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 #
-# Student name:
+# Student name: Luis Felipe Tomazini
+#               T 1pm
+#               Lab 05 - searcharray.s
 #
 # data segment -------------------------------------
 .data	 
