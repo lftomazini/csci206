@@ -18,7 +18,6 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH
 # THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
-#
 # Student name: Luis Felipe Tomazini
 #               T 1pm
 #               Lab 06 - prelab.s
