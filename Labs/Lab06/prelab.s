@@ -45,20 +45,28 @@ main:
 	addi	$a0, $zero, 5
 	addi	$a1, $zero, 6
 	jal	myFunc
-	add	$s1, $zero, $v0     # save result in $s1
+	add	$s1, $zero, $v0     	# save result in $s1
 
-    add $s1, $s1, $s0
+    	add $s1, $s1, $s0
 
-    #
-    # add code here to print the result of myFunc(2,3)+myFunc(5,6)
-    #
-
-	addi	$v0, $zero, 10				# system call for exit
+    	add	$a0, $zero, $s1		# print value of myFunc(2,3)+myFunc(5,6)
+	li	$v0, 1
 	syscall
 
-# myFunc = 4x - (2y + 1)
+	addi	$v0, $zero, 10		# system call for exit
+	syscall
+
+# myFunc = 4x - (2y + C)
 myFunc:
-    #
-    # your code for the procedure goes here 
-    #
-	jr $ra
+    	lw	$t2, C($zero)
+    	addi	$t0, $zero, 2	# add immediate 2 to register
+    	mulo	$t0, $t0, $a1	# multiply 2 with second argument
+    	add	$t0, $t0, $t2	# add the constant
+    	addi	$t1, $zero, 4	# add immediate 4 to register
+    	mulo	$t1, $t1, $a0	# multiply 4 with second argument
+    	sub	$v0, $t1, $t0	# subtract partial results
+	jr $ra			# return
+
+
+# 4194316 corresponds to line 42
+# 4194332 corresponds to line 48
