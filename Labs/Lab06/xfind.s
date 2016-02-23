@@ -32,7 +32,7 @@
 
 # These are the two test strings, use one at a time
 string: .asciiz "Where is my xbox 360?"
-# string: .asciiz "None of that character in here."
+#string: .asciiz "None of that character in here."
 
 	.text
 
@@ -42,10 +42,11 @@ main:
 	sw	$ra, 0($sp)
 	
 	la	$a0, string		# load address of string
-	jal	xfind			# call function convert
+	jal	xfind			# call function xfind
 
-#   write code here to print the result of the 
-#   call to xfind
+	add	$a0, $zero, $v0		# print value of xfind
+	li	$v0, 34
+	syscall
 
 	lw	$ra, 0($sp)		# restoring registers
 	addi	$sp, $sp, 4
@@ -54,4 +55,19 @@ main:
 	syscall
 
 xfind:
-# write the code of function xfind after this comment
+	move	$t0, $a0
+	li	$t2, 'x'	# set value to be searched to be 'x'
+	li	$t3, '\0'
+	if_begin:
+		lb	$t1, 0($t0)	# get next element
+		beq	$t1, $t3, not_found
+		beq	$t1, $t2, if_end
+		addi	$t0, $t0, 1	# adjusting the base to “see” next element
+		j	if_begin
+	if_end:
+		add	$v0, $zero, $t0
+		jr	$ra		# return
+	not_found:
+		addi	$v0, $zero, -1
+		jr	$ra		# return
+	
