@@ -42,13 +42,25 @@ Result2:.word 0xDEADBEEF
 
 main:
 
-# Prepare arguments to pass to largeProc
+	# Prepare arguments to pass to largeProc
+	lw	$a0, A
+	lw	$a1, B
+	lw	$a2, C
+	lw	$a3, D
 
-# Call largeProc
+	# Call largeProc
+	jal	largeProc
 
-# Print the results returned from largeProc
+	# Print the results returned from largeProc
+	add	$a0, $zero, $v0		# print value of first result
+	li	$v0, 1
+	syscall
+	
+	add	$a0, $zero, $v1		# print value of second result
+	li	$v0, 1
+	syscall
 
-# The program is finished. Terminate the execution.
+	# The program is finished. Terminate the execution.
 	addi	$v0, $zero, 10		# system call for exit
 	syscall
 
@@ -61,15 +73,45 @@ largeProc:
 # your code goes here
 	
 	# Store registers which must be saved onto the stack
-
+	
+	# push $ra
+	
+	# read instead of pop
+	
+	# pop last value aka p5
+	lw	$t0, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# pop last value aka p4
+	lw	$t1, 0($sp)
+	addi	$sp, $sp, 4
+	
 	# Compute the first result
+	add	$v0, $a1, $a2
+	add	$v0, $v0, $t1
 
 	# Compute the second result
+	sub	$v1, $a0, $a3
+	add	$v0, $v0, $t0
 
-	# Call smallProc for the heck of it, but save $v0,
-	# and $v1 because smallProc could possibly overwrite them!
+	# Saves the results just in case the other procedure changes them
+	addi	$sp, $sp, -4
+	sw	$v0, 0($sp)
+	
+	addi	$sp, $sp, -4
+	sw	$v1, 0($sp)
+
+	# Call smallProc
+	jal smallProc
 
 	# Restore registers using the stack
+	lw	$v1, 0($sp)
+	addi	$sp, $sp, 4
+	
+	lw	$v0, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# pop $ra
 
 	jr	$ra
 
