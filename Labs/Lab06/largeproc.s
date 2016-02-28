@@ -32,8 +32,9 @@ C:	.word 4
 D:	.word 9
 E:	.word 3
 F:	.word 8
-Result1:.word 0xDEADBEEF
-Result2:.word 0xDEADBEEF
+result_1:	.asciiz "Result 1: "
+result_2:	.asciiz "Result 2: "
+newline:	.asciiz "\n"
 
 	.text
 
@@ -47,16 +48,58 @@ main:
 	lw	$a1, B
 	lw	$a2, C
 	lw	$a3, D
+	lw	$t6, E
+	lw	$t7, F
+
+    # push E
+	addi	$sp, $sp, -4
+	sw	$t6, 0($sp)
+
+    # push F
+	addi	$sp, $sp, -4
+	sw	$t7, 0($sp)
+
+    # push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
 
 	# Call largeProc
 	jal	largeProc
 
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+
+	# pop F
+	lw	$t7, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# pop E
+	lw	$t6, 0($sp)
+	addi	$sp, $sp, 4
+
+	# move results
+	move	$t6, $v0
+	move	$t7, $v1
+
 	# Print the results returned from largeProc
-	add	$a0, $zero, $v0		# print value of first result
+	la	$a0, result_1       # print string "Result 1: "
+	li	$v0, 4
+	syscall
+	
+	add	$a0, $zero, $t6		# print value of first result
 	li	$v0, 1
 	syscall
 	
-	add	$a0, $zero, $v1		# print value of second result
+	la	$a0, newline        # print new line character
+	li	$v0, 4
+	syscall
+	
+	la	$a0, result_2       # print string "Result 2: "
+	li	$v0, 4
+	syscall
+	
+	add	$a0, $zero, $t7		# print value of second result
 	li	$v0, 1
 	syscall
 
@@ -67,26 +110,17 @@ main:
 # This large complicated procedure takes 6 paramters and returns 2.
 # Additionally this procedure calls another procedure.
 # It is assumed that $fp has been set correctly
-
 largeProc:
-
-# your code goes here
-	
 	# Store registers which must be saved onto the stack
-	
-	# push $ra
+    # push $ra
 	addi	$sp, $sp, -4
 	sw	$ra, 0($sp)
 	
-	# read instead of pop
+	# read value p5
+	lw	$t0, 8($sp)
 	
-	# pop last value aka p5
-	lw	$t0, 0($sp)
-	addi	$sp, $sp, 4
-	
-	# pop last value aka p4
-	lw	$t1, 0($sp)
-	addi	$sp, $sp, 4
+	# read value p4
+	lw	$t1, 12($sp)
 	
 	# Compute the first result
 	add	$v0, $a1, $a2
@@ -94,12 +128,15 @@ largeProc:
 
 	# Compute the second result
 	sub	$v1, $a0, $a3
-	add	$v0, $v0, $t0
+	add	$v1, $v1, $t0
 
 	# Saves the results just in case the other procedure changes them
+
+    # push result 1
 	addi	$sp, $sp, -4
 	sw	$v0, 0($sp)
-	
+
+    # push result 2
 	addi	$sp, $sp, -4
 	sw	$v1, 0($sp)
 
@@ -107,19 +144,24 @@ largeProc:
 	jal smallProc
 
 	# Restore registers using the stack
+    # pop result 2
 	lw	$v1, 0($sp)
 	addi	$sp, $sp, 4
-	
+
+    # pop result 1
 	lw	$v0, 0($sp)
 	addi	$sp, $sp, 4
-	
-	# pop $ra
+
+    # pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
 
 	jr	$ra
 
 # This procedure computes nothing useful, it just returns
-
 smallProc:
 
 	jr	$ra
+
+# If I had 3 values to be returned from the large procedure, two of them would go in the $v registers and the other would be pushed to the stack
 		

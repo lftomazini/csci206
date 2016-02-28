@@ -2,7 +2,7 @@
 MAX_ITEMS:	.word	100
 ivar:		.word	1	# int i
 arrow_string:	.asciiz " ==> "
-newline:	.asciiz "\0"
+newline:	.asciiz "\n"
 
 .text
 main:
