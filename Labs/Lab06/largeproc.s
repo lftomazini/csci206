@@ -75,6 +75,8 @@ largeProc:
 	# Store registers which must be saved onto the stack
 	
 	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
 	
 	# read instead of pop
 	

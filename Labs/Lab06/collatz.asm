@@ -1,0 +1,150 @@
+.data
+MAX_ITEMS:	.word	100
+ivar:		.word	1	# int i
+arrow_string:	.asciiz " ==> "
+newline:	.asciiz "\0"
+
+.text
+main:
+	# store 1 in i
+	li 	$s0, 1
+	sw 	$s0, ivar
+	
+	# store 100 in MAX_ITEMS
+	li 	$s1, 100
+	sw 	$s1, MAX_ITEMS
+loop:	
+	bge 	$s0, $s1, end
+	
+	move	$a0, $s0
+
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
+	
+	# go to find_length
+	jal	find_length
+	
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+
+	move	$s2, $v0
+	
+	# print value of collatz
+	add	$a0, $zero, $s0
+	li	$v0, 1
+	syscall
+	
+	la	$a0, arrow_string
+	li	$v0, 4
+	syscall
+	
+	add	$a0, $zero, $s2
+	li	$v0, 1
+	syscall
+	
+	la	$a0, newline
+	li	$v0, 4
+	syscall
+	
+	addi	$s0, $s0, 1
+	j	loop
+
+collatz:
+	# store comparison value
+	addi	$t0, $zero, 1
+	# comparison branch
+	bne	$a0, $t0, elseif
+	# store value to return
+	move	$v0, $t0
+	# jump back to routine
+	jr	$ra
+	
+elseif:
+	# store division value
+	addi	$t2, $zero, 2
+	# make division
+	div	$a0, $t1
+	# mod is stored in hi
+	mfhi	$t1
+	# comparison branch
+	bne	$a0, $t1, else
+	
+	# push n
+	addi	$sp, $sp, -4
+	sw	$a0, 0($sp)
+	
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
+	
+	# preparing arguments
+	div	$a0, $t2
+	mflo	$a0
+	
+	# call to colllatz
+	jal	collatz
+	
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# pop n
+	lw	$a0, 0($sp)
+	addi	$sp, $sp, 4
+	
+	add	$v0, $v0, $t0
+	
+	jr	$ra
+	
+else:	
+	# push n
+	addi	$sp, $sp, -4
+	sw	$a0, 0($sp)
+	
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
+	
+	# preparing argument
+	addi	$t1, $zero, 3
+	mulo	$a0, $a0, $t1
+	#add	$t1, $a0, $a0
+	#add	$t1, $t1, $a0
+	#move	$a0, $t1
+	addi	$a0, $a0, 1
+	
+	# call to colllatz
+	jal	collatz
+	
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# pop n
+	lw	$a0, 0($sp)
+	addi	$sp, $sp, 4
+	
+	add	$v0, $v0, $t0
+	
+	jr	$ra
+
+
+find_length:
+	# store comparison value
+	addi	$t0, $zero, 1
+	# comparison branch
+	bgt	$a0, $t0, length_else
+	# store value to return
+	move	$v0, $t0
+	
+	# jump back to routine
+	jr	$ra
+	
+	length_else:
+		jal	collatz
+end:
+	# terminate program
+	li 	$v0, 10
+	syscall
