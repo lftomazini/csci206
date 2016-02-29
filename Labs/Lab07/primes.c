@@ -35,3 +35,7 @@ int main (void) {
     
     return 0;
 }
+
+// Real: 21.349s
+// User: 16.837s
+// Sys:   0.216s
