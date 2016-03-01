@@ -10,7 +10,7 @@ loop:
 	addi	$t0, $t0, 1	# increment loop variable
 	bge	$t0, $t1, end	# loop
 	nop
-	div	$zero, $a0, $t0	# makes division
+	div	$a0, $t0	# makes division
 	mfhi	$t2		# move mod value
 	bne	$zero, $t2, loop# if statement
 	nop

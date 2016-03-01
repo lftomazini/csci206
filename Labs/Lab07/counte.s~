@@ -17,7 +17,7 @@ loop:
 	lb	$t2, 0($t1)	# get char
 	beq	$t2, $t3, end	# loop
 	nop
-	bne	$t2, $t0, loop	# if statement
+	bne	$t2, $t0, loop# if statement
 	nop
 	addi	$a0, $a0, 1	# increment count
 end:
