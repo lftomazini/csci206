@@ -7,14 +7,16 @@
 
 #include <stdio.h>
 
+int counte(char* myString);
+
 int main (void) {
-    char* myString;
+    char myString[30];
     
     printf("Type a string: ");
     scanf("%s", myString);
     
     int count = counte(myString);
-    printf("There are %d e's", count);
+    printf("There are %d e's\n", count);
     
     return 0;
 }

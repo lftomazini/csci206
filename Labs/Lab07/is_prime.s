@@ -14,12 +14,14 @@ loop:
 	mfhi	$t2		# move mod value
 	bne	$zero, $t2, loop# if statement
 	nop
-	li	$a0, 0		# return 0
-    	li	$v0, 4001
-    	syscall
-end:
-	li	$a0, 1		# return 1
-    	li	$v0, 4001
-    	syscall
+	li	$v0, 0		# return 0
 	
+	jr	$ra
+	nop
+
+end:
+	li	$v0, 1		# return 1
+	
+	jr	$ra
+	nop
 	
