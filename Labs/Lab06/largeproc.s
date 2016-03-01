@@ -19,7 +19,9 @@
 # THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 #
-# Student name:
+# Student name: Luis Felipe Tomazini
+#               T 1pm
+#               Lab 06 - largeproc.s
 #
 # This program demonstrates passing a large number of arguments to a
 # procedure which is not a leaf procedure.
@@ -51,15 +53,15 @@ main:
 	lw	$t6, E
 	lw	$t7, F
 
-    # push E
+    	# push E
 	addi	$sp, $sp, -4
 	sw	$t6, 0($sp)
 
-    # push F
+    	# push F
 	addi	$sp, $sp, -4
 	sw	$t7, 0($sp)
 
-    # push $ra
+    	# push $ra
 	addi	$sp, $sp, -4
 	sw	$ra, 0($sp)
 
@@ -112,7 +114,7 @@ main:
 # It is assumed that $fp has been set correctly
 largeProc:
 	# Store registers which must be saved onto the stack
-    # push $ra
+   	# push $ra
 	addi	$sp, $sp, -4
 	sw	$ra, 0($sp)
 	
@@ -132,11 +134,11 @@ largeProc:
 
 	# Saves the results just in case the other procedure changes them
 
-    # push result 1
+    	# push result 1
 	addi	$sp, $sp, -4
 	sw	$v0, 0($sp)
 
-    # push result 2
+    	# push result 2
 	addi	$sp, $sp, -4
 	sw	$v1, 0($sp)
 
@@ -144,15 +146,15 @@ largeProc:
 	jal smallProc
 
 	# Restore registers using the stack
-    # pop result 2
+    	# pop result 2
 	lw	$v1, 0($sp)
 	addi	$sp, $sp, 4
 
-    # pop result 1
+   	 # pop result 1
 	lw	$v0, 0($sp)
 	addi	$sp, $sp, 4
 
-    # pop $ra
+    	# pop $ra
 	lw	$ra, 0($sp)
 	addi	$sp, $sp, 4
 

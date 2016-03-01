@@ -29,7 +29,7 @@ loop:
 	lw	$ra, 0($sp)
 	addi	$sp, $sp, 4
 
-	move	$s2, $v0
+	move	$s2, $a0
 	
 	# print value of collatz
 	add	$a0, $zero, $s0
@@ -52,24 +52,37 @@ loop:
 	j	loop
 
 collatz:
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
+	
 	# store comparison value
-	addi	$t0, $zero, 1
+	li	$t0, 1
 	# comparison branch
 	bne	$a0, $t0, elseif
 	# store value to return
 	move	$v0, $t0
+	
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+	
 	# jump back to routine
 	jr	$ra
 	
 elseif:
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
+	
 	# store division value
-	addi	$t2, $zero, 2
+	li	$t2, 2
 	# make division
-	div	$a0, $t1
+	div	$a0, $t2
 	# mod is stored in hi
 	mfhi	$t1
 	# comparison branch
-	bne	$a0, $t1, else
+	bne	$zero, $t1, else
 	
 	# push n
 	addi	$sp, $sp, -4
@@ -86,6 +99,9 @@ elseif:
 	# call to colllatz
 	jal	collatz
 	
+	# move values
+	move	$v0, $a0
+	
 	# pop $ra
 	lw	$ra, 0($sp)
 	addi	$sp, $sp, 4
@@ -94,11 +110,20 @@ elseif:
 	lw	$a0, 0($sp)
 	addi	$sp, $sp, 4
 	
-	add	$v0, $v0, $t0
+	add	$a0, $v0, $t0
 	
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# jump back to routine
 	jr	$ra
 	
 else:	
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
+	
 	# push n
 	addi	$sp, $sp, -4
 	sw	$a0, 0($sp)
@@ -108,15 +133,15 @@ else:
 	sw	$ra, 0($sp)
 	
 	# preparing argument
-	addi	$t1, $zero, 3
+	li	$t1, 3
 	mulo	$a0, $a0, $t1
-	#add	$t1, $a0, $a0
-	#add	$t1, $t1, $a0
-	#move	$a0, $t1
 	addi	$a0, $a0, 1
 	
 	# call to colllatz
 	jal	collatz
+	
+	# move values
+	move	$v0, $a0
 	
 	# pop $ra
 	lw	$ra, 0($sp)
@@ -126,24 +151,40 @@ else:
 	lw	$a0, 0($sp)
 	addi	$sp, $sp, 4
 	
-	add	$v0, $v0, $t0
+	add	$a0, $v0, $t0
 	
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# jump back to routine
 	jr	$ra
 
 
 find_length:
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
+
 	# store comparison value
-	addi	$t0, $zero, 1
+	li	$t0, 1
 	# comparison branch
 	bgt	$a0, $t0, length_else
 	# store value to return
-	move	$v0, $t0
+	move	$a0, $t0
 	
 	# jump back to routine
 	jr	$ra
 	
 	length_else:
-		jal	collatz
+	jal	collatz
+	
+	# pop $ra
+	lw	$ra, 0($sp)
+	addi	$sp, $sp, 4
+	
+	# jump back to routine
+	jr	$ra
 end:
 	# terminate program
 	li 	$v0, 10
