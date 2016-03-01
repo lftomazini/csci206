@@ -1,3 +1,6 @@
+# Luis Felipe Tomazini
+# T 1pm
+# Lab 06 - collatz.s
 .data
 MAX_ITEMS:	.word	100
 ivar:		.word	1	# int i
