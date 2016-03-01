@@ -19,7 +19,9 @@
 # THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 #
-# Student name:
+# Student name: Luis Felipe Tomazini
+#               T 1pm
+#               Lab 06 - xfind.s
 #
 #
 # This program uses a procedure xfind to find a particular character.
