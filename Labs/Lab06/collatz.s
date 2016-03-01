@@ -19,6 +19,7 @@ main:
 loop:	
 	bge 	$s0, $s1, end
 	
+	# prepering arguments
 	move	$a0, $s0
 
 	# push $ra
@@ -32,6 +33,7 @@ loop:
 	lw	$ra, 0($sp)
 	addi	$sp, $sp, 4
 
+	# cpy result
 	move	$s2, $a0
 	
 	# print value of collatz
@@ -55,10 +57,6 @@ loop:
 	j	loop
 
 collatz:
-	# push $ra
-	addi	$sp, $sp, -4
-	sw	$ra, 0($sp)
-	
 	# store comparison value
 	li	$t0, 1
 	# comparison branch
@@ -66,18 +64,10 @@ collatz:
 	# store value to return
 	move	$v0, $t0
 	
-	# pop $ra
-	lw	$ra, 0($sp)
-	addi	$sp, $sp, 4
-	
 	# jump back to routine
 	jr	$ra
 	
 elseif:
-	# push $ra
-	addi	$sp, $sp, -4
-	sw	$ra, 0($sp)
-	
 	# store division value
 	li	$t2, 2
 	# make division
@@ -86,6 +76,10 @@ elseif:
 	mfhi	$t1
 	# comparison branch
 	bne	$zero, $t1, else
+	
+	# push $ra
+	addi	$sp, $sp, -4
+	sw	$ra, 0($sp)
 	
 	# push n
 	addi	$sp, $sp, -4
@@ -113,6 +107,7 @@ elseif:
 	lw	$a0, 0($sp)
 	addi	$sp, $sp, 4
 	
+	# perform arithmetic
 	add	$a0, $v0, $t0
 	
 	# pop $ra
@@ -154,6 +149,7 @@ else:
 	lw	$a0, 0($sp)
 	addi	$sp, $sp, 4
 	
+	# perform arithmetic
 	add	$a0, $v0, $t0
 	
 	# pop $ra
@@ -179,7 +175,7 @@ find_length:
 	# jump back to routine
 	jr	$ra
 	
-	length_else:
+length_else:
 	jal	collatz
 	
 	# pop $ra
