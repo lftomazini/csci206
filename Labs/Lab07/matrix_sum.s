@@ -10,7 +10,7 @@ matrix_sum:
 	li	$t5, 0
 	move	$t3, $a0
 	move	$t7, $a1
-	bge	$t5, $t4, end
+loop:	bge	$t5, $t4, end
 	nop
 	lw	$t0, 0($t3)
 	lw	$t1, 0($t7)
@@ -22,6 +22,7 @@ matrix_sum:
 	addi	$t7, $t7, 4
 	addi	$a2, $a2, 4
 	addi	$t5, $t5, 1
+	j	loop
 end:
 	jr	$ra
 	nop
