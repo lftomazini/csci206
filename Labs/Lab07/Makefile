@@ -3,7 +3,7 @@ CFLAGS=-Wall
 
 all: primes counte
 
-primes: primes2.c is_prime.s
+primes: primes2.c is_prime.s matrix-sum
 	$(CC) $(CFLAGS)  primes2.c is_prime.s -o primes2
 
 counte: counte.c counte.s
