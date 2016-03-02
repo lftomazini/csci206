@@ -1,7 +1,7 @@
 /* Luis Felipe Tomazini
  * T 1pm
- * lab 07 - primes.c
- * compile with: make primes
+ * lab 07 - primes2.c
+ * compile with: make
  * notes: print prime numbers
  */
 

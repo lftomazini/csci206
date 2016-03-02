@@ -1,8 +1,8 @@
 /* Luis Felipe Tomazini
  * T 1pm
- * lab 07 - primes.c
- * compile with: make primes
- * notes: print prime numbers
+ * lab 07 - counte.c
+ * compile with: make
+ * notes: count number of e's in a string
  */
 
 #include <stdio.h>

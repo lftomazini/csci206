@@ -1,4 +1,11 @@
- #include <stdio.h>
+/* Luis Felipe Tomazini
+ * T 1pm
+ * lab 07 - matrix-sum
+ * compile with: make
+ * notes: print sum of 2 matrixes
+ */
+
+#include <stdio.h>
  
  void matrix_sum(int a[2][3],int b[2][3], int c[2][3]);
  
