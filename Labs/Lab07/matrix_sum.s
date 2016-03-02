@@ -16,7 +16,7 @@ matrix_sum:
 	lw	$t1, 0($t7)
 	add	$t2, $t0, $t1
 	
-	sw	$t5, 0($a2)
+	sw	$t2, 0($a2)
 	
 	addi	$t3, $t3, 4
 	addi	$t7, $t7, 4

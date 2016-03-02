@@ -8,3 +8,6 @@ primes: primes2.c is_prime.s
 
 counte: counte.c counte.s
 	$(CC) $(CFLAGS)  counte.c counte.s -o counte
+
+matrix-sum: matrix-sum.c matrix_sum.s
+	$(CC) $(CFLAGS)  matrix-sum.c matrix_sum.s -o sum
