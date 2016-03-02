@@ -1,9 +1,9 @@
 CC=gcc
 CFLAGS=-Wall
 
-all: primes counte
+all: primes counte matrix-sum
 
-primes: primes2.c is_prime.s matrix-sum
+primes: primes2.c is_prime.s 
 	$(CC) $(CFLAGS)  primes2.c is_prime.s -o primes2
 
 counte: counte.c counte.s
