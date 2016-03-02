@@ -1,5 +1,6 @@
 CC=gcc
 CFLAGS=-Wall
+CFLAG=-g
 DEPS=time.h
 
 all: primes counte matrix-sum time
@@ -14,7 +15,7 @@ matrix-sum: matrix-sum.c matrix_sum.s
 	$(CC) $(CFLAGS)  matrix-sum.c matrix_sum.s -o sum
 
 time: time.c time.s
-	$(CC) $(CFLAGS)  time.c time.s -o time
+	$(CC) $(CFLAGS) $(CFLAG) time.c time.s -o time
 
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<
