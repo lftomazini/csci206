@@ -2,7 +2,7 @@
  
  void matrix_sum(int a[2][3],int b[2][3], int c[2][3]);
  
- int print_m (int x[2][3]) {
+ void print_m (int x[2][3]) {
      int i,j;
      for (j = 0; j < 2; j++){
          for (i = 0; i < 3; i++){
