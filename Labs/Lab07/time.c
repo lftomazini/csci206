@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <time.h>
 
+void add_second(struct tm tm);
+
 int main(void) {
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
