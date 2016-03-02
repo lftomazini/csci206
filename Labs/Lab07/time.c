@@ -13,5 +13,9 @@ int main(void) {
     struct tm *tm = localtime(&t);
     
     printf ("it is now: %s\n", asctime(tm));
+    int i = 0;
+    for (i = 0; i < 2345; i++) {
+        add_second(tm);
+    }
     return 0;
 }
