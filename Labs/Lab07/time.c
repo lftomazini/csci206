@@ -18,7 +18,7 @@ int main(void) {
     int i = 0;
     for (i = 0; i < 2345; i++) {
         add_second(tm);
-        printf("%d", i+1);
     }
+    printf("After adding 2345 seconds: %s\n", asctime(tm));
     return 0;
 }
