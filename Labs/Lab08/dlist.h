@@ -107,4 +107,13 @@ void dlist_destroy(struct dlist *l);
  */
 uint32_t dlist_length(struct dlist *l);
 
+/**
+ * Compares the first character of the node's string and the string parameter.
+ * 
+ * @param n pointer to node to compare from the list (must be in the list!)
+ * @param str pointer to a string
+ * @return an integral value indicating the relationship between the strings
+ */
+int dnode_cmp(struct dnode *n, char *str);
+
 #endif /* _dlist_H_ */

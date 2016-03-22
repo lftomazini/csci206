@@ -8,7 +8,6 @@ int main(void) {
     struct dnode *node;
 
     song_list = dlist_create();
-
     dlist_add_back(song_list, "Thinking Out Loud");
     dlist_add_back(song_list, "See You Again");
     dlist_add_back(song_list, "Trap Queen");
@@ -24,6 +23,7 @@ int main(void) {
     for (node = song_list->front; node != NULL; node = node->next){
         printf("%s\n", node->str);
     }
+
     dlist_destroy(song_list);
 
     return 0;
