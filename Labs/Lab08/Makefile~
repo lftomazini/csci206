@@ -12,7 +12,7 @@ dnode: dnode.c dnode-test.c dnode.h
 song_list: dlist.c song_list.c dnode.c dnode.h dlist.h
 	$(CC) $(CFLAGS) dlist.c song_list.c dnode.c dnode.h dlist.h -o song_list
 
-dlist: dlist.c dnode.c dnode.h dlist.h dlist_test.c
-	$(CC) $(CFLAGS) dlist.c dnode.c dnode.h dlist.h dlist_test.c -o dlist
+dlist: dlist.c song_list.c dnode.c dnode.h dlist.h dlist_test.c
+	$(CC) $(CFLAGS) dlist.c song_list.c dnode.c dnode.h dlist.h dlist_test.c -o dlist
 
 
