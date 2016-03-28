@@ -106,7 +106,7 @@ struct dnode* dlist_insert_after(struct dlist* l, struct dnode* n, char * str) {
 
     if (l->back == n)
     	l->back = node;
-    
+
 	l->counter++;
     printf("test add 6\n");
 
@@ -129,8 +129,8 @@ struct dnode* dlist_insert_before(struct dlist* l, struct dnode* n, char * str) 
 	n->prev = node;
     printf("test add 5\n");
 
-	if (l->head == n)
-		l->head = node;
+	if (l->front == n)
+		l->front = node;
 
 	l->counter++;
 
