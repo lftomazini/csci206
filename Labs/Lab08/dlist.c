@@ -62,9 +62,11 @@ void dlist_destroy(struct dlist *l) {
 	struct dnode *node;
 	for (node = l->front; node != NULL; node = node->next){
 		dnode_destroy(node);
+		printf("free\n");
 	}
-
+printf("final\n");
 	free(l);
+	printf("done\n");
 }
 
 uint32_t dlist_length(struct dlist *l) {
@@ -88,47 +90,26 @@ int dnode_cmp(struct dnode *n, char *str) {
 
 struct dnode* dlist_insert_after(struct dlist* l, struct dnode* n, char * str) {
 	struct dnode *node = dnode_create(str);
-    printf("test add 1\n");
-
 	node->prev = n;
-    printf("test add 2\n");
-
 	node->next = n->next;
-    printf("test add 3\n");
-
 	if (n->next != NULL)
 		n->next->prev = node;
-    printf("test add 4\n");
-
-
 	n->next = node;
-    printf("test add 5\n");
-
     if (l->back == n)
     	l->back = node;
 
 	l->counter++;
-    printf("test add 6\n");
 
 	return node;
 }
 
 struct dnode* dlist_insert_before(struct dlist* l, struct dnode* n, char * str) {
 	struct dnode *node = dnode_create(str);
-    printf("test add 1\n");
-
 	node->next = n;
-    printf("test add 2\n");
-
 	node->prev = n->prev;
-    printf("test add 3\n");
-
-	node->prev->next = node;
-    printf("test add 4\n");
-
+    if(n->prev != NULL)
+		n->prev->next = node;
 	n->prev = node;
-    printf("test add 5\n");
-
 	if (l->front == n)
 		l->front = node;
 
@@ -140,21 +121,21 @@ struct dnode* dlist_insert_before(struct dlist* l, struct dnode* n, char * str) 
 
 
 struct dnode* dlist_remove(struct dlist* l, struct dnode* n) {
-	if (l->front == NULL || n == NULL) {
-		return NULL;
-	}
-
-	if (l->front == n) {
-		l->front = n->next;
-	}
-
-	if (n->next != NULL) {
+	if (n->next != NULL)
 		n->next->prev = n->prev;
-	}
-
-	if (n->prev != NULL) {
+	if (n->prev != NULL)
 		n->prev->next = n->next;
-	}
+	if (n == l->front)
+		l->front = n->next;
+	if (n == l->back)
+		l->back = n->prev;
+
+	n->prev = NULL;
+	n->next = NULL;
+
+	l->counter--;
+
 	return n;
+
 }
 

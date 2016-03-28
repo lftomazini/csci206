@@ -1,18 +1,25 @@
 CC=gcc
 CFLAGS=-Wall
 
-all: snode dnode song_list dlist
+all: snode-test dnode-test song_list dlist-test
 
-snode: snode.c snode-test.c snode.h
-	$(CC) $(CFLAGS) snode.c snode-test.c snode.h -o snode
+snode.o: snode.h snode.c
+	$(CC) $(CFLAGS) -c snode.c -o snode.o
 
-dnode: dnode.c dnode-test.c dnode.h
-	$(CC) $(CFLAGS) dnode.c dnode-test.c dnode.h -o dnode
+dnode.o: dnode.h dnode.c
+	$(CC) $(CFLAGS) -c dnode.c -o dnode.o
 
-song_list: dlist.c song_list.c dnode.c dnode.h dlist.h
-	$(CC) $(CFLAGS) dlist.c song_list.c dnode.c dnode.h dlist.h -o song_list
+dlist.o: dlist.c dlist.h
+	$(CC) $(CFLAGS) -c dlist.c -o dlist.o 
 
-dlist: dlist.c dnode.c dnode.h dlist.h dlist_test.c
-	$(CC) $(CFLAGS) dlist.c dnode.c dnode.h dlist.h dlist_test.c -o dlist
+snode-test: snode.o snode-test.c
+	$(CC) $(CFLAGS) snode-test.c snode.o -o snode-test
 
+dnode-test: dnode.o dnode-test.c
+	$(CC) $(CFLAGS) dnode-test.c dnode.o -o dnode-test
 
+song_list: dlist.o song_list.c dnode.o
+	$(CC) $(CFLAGS) dlist.o song_list.c dnode.o -o song_list
+
+dlist-test: dnode.o dlist.o dlist_test.c
+	$(CC) $(CFLAGS) dlist.o dnode.o dlist_test.c -o dlist-test

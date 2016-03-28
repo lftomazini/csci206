@@ -22,26 +22,14 @@ void test1()
     assert(NULL != l);
 
     // test add back
-    printf("test add back\n");
     struct dnode* a = dlist_add_back(l, "A");   
-
     assert(l->front == a);
     assert(l->back == a);
     assert(a->next == NULL);
     assert(a->prev == NULL);
 
     // test insert
-    printf("test insert\n");
     struct dnode* c = dlist_insert_after(l, a, "C");
-
-	int i = 0;
-    struct dnode *t;
-    printf("%d :[ ", dlist_length(l));
-    for (t = l->front; t != NULL; t = t->next){
-        printf("%d:%s ", i++, t->str);        
-    }
-    printf("]\n");
-
     assert(l->front == a);
     assert(l->back == c);
     assert(a->next == c);
@@ -50,7 +38,6 @@ void test1()
     assert(c->prev == a);
 
     struct dnode* b = dlist_insert_after(l, a, "B");
-
     assert(l->front == a);
     assert(l->back == c);
     assert(l->front->next == b);
@@ -61,7 +48,6 @@ void test1()
     assert(l->back->prev->prev == a);
 
     // insert before first node
-    printf("test insert before first node\n");
     struct dnode* first = dlist_insert_before(l, a, "FIRST");
     assert(l->front == first);
     assert(l->front->next == a);
@@ -112,7 +98,7 @@ void test1()
     dnode_destroy(rmv);
 
     assert(dlist_length(l) == 3);
-
+    
     // test removing last item
     dlist_remove(l, c);
     assert(l->back == b);
