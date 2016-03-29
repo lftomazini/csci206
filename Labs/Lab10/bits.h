@@ -1,3 +1,11 @@
+ /*
+ * Luis Felipe Tomazini
+ * T 1pm
+ * Lab 10 - bits.h
+ * compile with: make
+ * notes: header for bit-level floating popint operations
+ */
+
 #ifndef _bits_H_
 #define _bits_H_
 
