@@ -1,0 +1,24 @@
+Maximum value for IEEE754 single-precision floating point
+
+sign = 1 space
+exponent = 8 spaces
+mantissa = 23 spaces
+
+maximum exponent is 1111 1110 (254 in base 10) because 1111 1111 is NaN or infinity
+maximum mantissa is 111 1111 1111 1111 1111 1111(23 1's)
+
+1.111 1111 1111 1111 1111 1111 x 2^(1111 1110 - bias)
+
+the bias is 127(base 10) in this case
+
+1.111 1111 1111 1111 1111 1111 x 2^(127)
+
+move decimal point 23 digits to the right
+
+1111 1111 1111 1111 1111 1111 x 2^(104)
+
+convert mantissa
+
+1111 1111 1111 1111 1111 1111 = 2^24 - 1
+
+2^24 x 2^104 ~= 3.402823466 x 10^38
