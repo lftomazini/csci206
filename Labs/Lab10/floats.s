@@ -23,7 +23,10 @@ one_half_double:
     jr $ra
     nop
 
-
+f2u:
+	mfc1	$v0, $f12
+	jr	$ra
+	nop
 
 .data
 .align 2    # word align

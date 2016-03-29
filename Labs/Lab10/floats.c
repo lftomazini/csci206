@@ -30,6 +30,15 @@
  */
 float one_half_single(void);
 double one_half_double(void);
+void inspect_float(float){
+    unsigned int sign;
+    long int exponent;
+    long long int mantissa;
+
+    printf("sign = %d, exponent = %ld, fraction = %lld\n");
+}
+
+{
 
 int main()
 { 
