@@ -3,6 +3,12 @@
  * Author: Alan Marchiori
  * Date: 2014-02-28
  * Copyright (c) 2014 Bucknell University
+ * 
+ * Luis Felipe Tomazini
+ * T 1pm
+ * Lab 10 - bits.c
+ * compile with: make
+ * notes implements bit-level floating popint operations
  *
  * Permission is hereby granted, free of charge, to any individual or
  * institution obtaining a copy of this software and associated
