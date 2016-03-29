@@ -104,6 +104,7 @@ void test1()
     assert(l->back == b);
     assert(b->next == NULL);
 
+    dnode_destroy(c);
     dlist_destroy(l);
     l = NULL;
 

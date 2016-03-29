@@ -60,13 +60,12 @@ struct dnode* dlist_add_back(struct dlist *l, char *str) {
 
 void dlist_destroy(struct dlist *l) {
 	struct dnode *node;
-	for (node = l->front; node != NULL; node = node->next){
+	struct dnode *next;
+	for (node = l->front; node != NULL; node = next){
+		next = node->next;
 		dnode_destroy(node);
-		printf("free\n");
 	}
-printf("final\n");
 	free(l);
-	printf("done\n");
 }
 
 uint32_t dlist_length(struct dlist *l) {
