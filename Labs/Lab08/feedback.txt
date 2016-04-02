@@ -1,0 +1,31 @@
+------------------------------------------------------------
+Lab08 feedback for Luis Franco Candeo Tomazini (lffct001)
+------------------------------------------------------------
+prelab: snode.h: snode.h has a working definition of struct snode and declaration for
+snode_create.
+	Score: 10 / 10
+prelab: snode.c: snode.c has a correct snode_create that uses malloc and strcpy; -3 if it does
+not set length, str, or next.
+	Score: 10 / 10
+prelab: snode-test: snode-test works and compiles with a valid Makefile.
+	Score: 10 / 10
+dnone_test: dnode.h / .c created and dnode_test.c runs without memory leaks.
+	Score: 24 / 25
+	Comment: -1 point: wrong filename
+
+dlist: dlist.h / .c created with basic functions (create, destroy, add_front,
+add_back).
+	Score: 15 / 15
+song_list: song_list runs correctly (5 points) without memory leaks (5 points).
+	Score: 10 / 10
+dlist_funcs: higher level functions (insert_before, insert_after, find, remove) added to
+dlist.
+	Score: 15 / 15
+dlist_test: dlist_test runs correctly (5 points) without memory leaks (5 points).
+	Score: 7 / 10
+	Comment: -3 points: wrong Makefile / won't compile
+
+------------------------------------------------------------
+TOTAL 101.0 / 105.0
+------------------------------------------------------------
+

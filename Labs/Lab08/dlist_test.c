@@ -10,8 +10,8 @@
 #define TEST_SIZE 6
 #define TEST_FIND 5
 #else
-#define TEST_SIZE 65536
-#define TEST_FIND 32768
+#define TEST_SIZE 36
+#define TEST_FIND 32
 #endif
 
 
