@@ -1,6 +1,10 @@
 .text
 .global one_half_single
 .global one_half_double
+.global	f2u
+.global	u2f
+.global	d2u
+.global	u2d
 .align 2    # word align
 
 # one_half_single is a function
@@ -25,6 +29,22 @@ one_half_double:
 
 f2u:
 	mfc1	$v0, $f12
+	jr	$ra
+	nop
+	
+u2f:
+	mtc1	$a0, $f12
+	jr	$ra
+	nop
+
+d2u:
+	mfc1	$v0, $f12
+	jr	$ra
+	nop
+
+
+u2d:	
+	mtc1	$a0, $f12
 	jr	$ra
 	nop
 

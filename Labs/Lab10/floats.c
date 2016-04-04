@@ -30,20 +30,41 @@
  */
 float one_half_single(void);
 double one_half_double(void);
-void inspect_float(float){
+float u2f(unsigned int);
+unsigned int f2u(float);
+void inspect_float(float x){
     unsigned int sign;
     long int exponent;
     long long int mantissa;
 
-    printf("sign = %d, exponent = %ld, fraction = %lld\n");
+    unsigned int value = f2u(x);
+
+    sign = value >> 31;
+    exponent = value & 0x7f800000;
+    exponent >>= 23;
+    mantissa = value & 0x007fffff;
+
+
+    printf("sign = %d\n", sign);
+    printf("exponent = %ld\n", exponent);
+    printf("mantissa = %llx\n", mantissa);
 }
 
-{
+void precision() {
+    // value = 
+    float value = 1.0f;
+
+    inspect_float(u2f(f2u(1.0)+1));
+}
 
 int main()
 { 
     printf ("0.5 (single) = %f\n", one_half_single());
     printf ("0.5 (double) = %lf\n", one_half_double());
+
+    inspect_float(one_half_single());
+
+    //precision();
 
     return 0;
 }
