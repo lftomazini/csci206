@@ -33,18 +33,20 @@ f2u:
 	nop
 	
 u2f:
-	mtc1	$a0, $f12
+	mtc1	$a0, $f0
 	jr	$ra
 	nop
 
 d2u:
-	mfc1	$v0, $f12
+	mfc1	$v1, $f12
+	mfc1	$v0, $f13
 	jr	$ra
 	nop
 
 
 u2d:	
-	mtc1	$a0, $f12
+	mtc1	$v1, $f12
+	mtc1	$v0, $f13
 	jr	$ra
 	nop
 

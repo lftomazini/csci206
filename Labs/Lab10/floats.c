@@ -32,6 +32,9 @@ float one_half_single(void);
 double one_half_double(void);
 float u2f(unsigned int);
 unsigned int f2u(float);
+double u2d(unsigned int);
+unsigned int d2u(double);
+
 void inspect_float(float x){
     unsigned int sign;
     long int exponent;
@@ -50,21 +53,86 @@ void inspect_float(float x){
     printf("mantissa = %llx\n", mantissa);
 }
 
-void precision() {
-    // value = 
-    float value = 1.0f;
+void inspect_double(double x){
+    unsigned int sign;
+    long long int exponent;
+    unsigned long long int mantissa;
 
-    inspect_float(u2f(f2u(1.0)+1));
+    unsigned int value = d2u(x);
+
+    sign = value >> 63;
+    exponent = value & 0x7ff00000000;
+    exponent >>= 52;
+    mantissa = value & 0x000fffffffffffff;
+
+    printf("sign = %d\n", sign);
+    printf("exponent = %lld\n", exponent);
+    printf("mantissa = %llx\n", mantissa);
 }
 
-int main()
-{ 
+void precision() {
+/*
+ * The next number after 1.0 is 1.0000001192092895507812500000
+ * By analyzing the outputs it is noticeable that the difference between
+ * consecutive values is the same.  It makes possible to store much smaller
+ * values and larger values, without creating extra bits of precision. This
+ * is possible by denormalizing and normalizing numbers.
+ */
+    float value = 1.0f;
+    inspect_float(value);
+
+    inspect_float(u2f(f2u(value)+1));
+
+    printf("%1.28f\n", u2f(f2u(value)+1));
+    printf("%1.28f\n", u2f(f2u(value)+2));
+    printf("%1.28f\n", u2f(f2u(value)+3));
+    printf("%1.28f\n", u2f(f2u(value)+10));
+}
+
+int is_near(double value, double expected, double epsilon) {
+    float difference = ((value - expected) < 0) ? (expected - value) : (value - expected);
+
+    return ((difference < epsilon) ? 1 : 0);
+}
+
+void sum() {
+/*
+ * The precision of the datatype does not allow to perform exact calculations.
+ * By incrementing the variabe 1000 times the imprecision propagates.
+ * Thus the result is not precise.
+ */
+    float a = 0.1;
+    float sum = 0;
+    int i;
+    for (i = 0; i < 1000; i++) {
+        sum += a;
+    }
+ 
+    float epsilon = 0.005;
+
+    printf ("a = %1.28f, sum = %1.28f, sum == 100 ==> %s\n", a, sum, sum == 100 ? "TRUE":"FALSE");
+    printf ("a = %1.28f, sum = %1.28f, epsilon = %1.3f, sum is near 100 ==> %s\n", a, sum, epsilon, is_near(sum, 100,epsilon) ? "TRUE":"FALSE");
+ 
+    inspect_float(a);
+    inspect_float(sum);
+    inspect_float(100-sum);
+}
+
+int main() { 
     printf ("0.5 (single) = %f\n", one_half_single());
     printf ("0.5 (double) = %lf\n", one_half_double());
 
+    printf("\ninspect float test\n");
     inspect_float(one_half_single());
 
-    //precision();
+    printf("\ninspect double test\n");
+    inspect_double(one_half_double());
 
+    printf("\nprecision test\n");
+    precision();
+    printf("\nsum test\n");
+    sum();
+    printf("\n\nULTIMATE TEST\n\n");
+    inspect_double(3.14159265358979);
     return 0;
 }
