@@ -20,6 +20,12 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/* Luis Felipe Tomazini
+ * T 1pm
+ * floats.c
+ * compile with: make
+ */
+
 #include <stdio.h>
 
 /* Forward declaration for our assembly functions
@@ -32,13 +38,13 @@ float one_half_single(void);
 double one_half_double(void);
 float u2f(unsigned int);
 unsigned int f2u(float);
-double u2d(unsigned int);
-unsigned int d2u(double);
+double u2d(unsigned long long);
+unsigned long long d2u(double);
 
 void inspect_float(float x){
     unsigned int sign;
-    long int exponent;
-    long long int mantissa;
+    unsigned int exponent;
+    unsigned int mantissa;
 
     unsigned int value = f2u(x);
 
@@ -49,25 +55,25 @@ void inspect_float(float x){
 
 
     printf("sign = %d\n", sign);
-    printf("exponent = %ld\n", exponent);
-    printf("mantissa = %llx\n", mantissa);
+    printf("exponent = 0x%x\n", exponent);
+    printf("mantissa = 0x%x\n", mantissa);
 }
 
 void inspect_double(double x){
-    unsigned int sign;
-    long long int exponent;
-    unsigned long long int mantissa;
+    unsigned long long sign;
+    unsigned long long exponent;
+    unsigned long long mantissa;
 
-    unsigned int value = d2u(x);
+    unsigned long long value = d2u(x);
 
     sign = value >> 63;
-    exponent = value & 0x7ff00000000;
+    exponent = value & 0x7ff0000000000000;
     exponent >>= 52;
     mantissa = value & 0x000fffffffffffff;
 
-    printf("sign = %d\n", sign);
-    printf("exponent = %lld\n", exponent);
-    printf("mantissa = %llx\n", mantissa);
+    printf("sign = %lld\n", sign);
+    printf("exponent = 0x%llx\n", exponent);
+    printf("mantissa = 0x%llx\n", mantissa);
 }
 
 void precision() {
@@ -83,10 +89,10 @@ void precision() {
 
     inspect_float(u2f(f2u(value)+1));
 
-    printf("%1.28f\n", u2f(f2u(value)+1));
-    printf("%1.28f\n", u2f(f2u(value)+2));
-    printf("%1.28f\n", u2f(f2u(value)+3));
-    printf("%1.28f\n", u2f(f2u(value)+10));
+    printf("1.0 + 1 : %1.28f\n", u2f(f2u(value)+1));
+    printf("1.0 + 2 : %1.28f\n", u2f(f2u(value)+2));
+    printf("1.0 + 3 : %1.28f\n", u2f(f2u(value)+3));
+    printf("1.0 + 10 : %1.28f\n", u2f(f2u(value)+10));
 }
 
 int is_near(double value, double expected, double epsilon) {
@@ -118,21 +124,22 @@ void sum() {
     inspect_float(100-sum);
 }
 
-int main() { 
+int main() {
+    printf("\n---one half test---\n");
     printf ("0.5 (single) = %f\n", one_half_single());
     printf ("0.5 (double) = %lf\n", one_half_double());
 
-    printf("\ninspect float test\n");
+    printf("\n---inspect float test---\n");
     inspect_float(one_half_single());
 
-    printf("\ninspect double test\n");
+    printf("\n---inspect double test---\n");
     inspect_double(one_half_double());
 
-    printf("\nprecision test\n");
+    printf("\n---precision test---\n");
     precision();
-    printf("\nsum test\n");
+
+    printf("\n---sum test---\n");
     sum();
-    printf("\n\nULTIMATE TEST\n\n");
-    inspect_double(3.14159265358979);
+
     return 0;
 }
