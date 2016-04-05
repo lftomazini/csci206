@@ -1,0 +1,13 @@
+Luis Felipe Tomazini
+T 1pm
+answers.txt
+
+1.1 over1 When entering a string with more than 10 characters it prints the exact sanme string as input.
+    over2 When entering a string with more than 10 characters it prints truncating after the 9th character.
+    The buffer overflow risk was eliminated by using the fgets function, which has as an argument the size of the buffer.
+
+1.2 It does not check for the size of the buffer, using only the scanf function. This way it might overwrite other data.
+
+1.3 The program must always check if the input string can be stored in the buffer. Must remember about the '\0' character. So for a buffer of size n, there must be a check if the input string is n-1 in size or smaller. If it is not the programmer must provide a solution, such as truncate or ask for another string.
+
+1.4 To avoid buffer overflow it is possible to store only the characters that will fit in the buffer. So for a buffer of size n, the program can write only n-1 characters into the buffer. This guarantees that the buffer will contain only the number of characters possible, without overwriting other data. 
