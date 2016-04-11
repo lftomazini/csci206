@@ -1,0 +1,48 @@
+mini_bomb2
+
+negu negates the value in a0
+
+secret_check is called
+disassembling the code we see that it adds 9876 to that value
+and at the end it must be less than 1
+
+(-a0 + 9876) = 0
+a0 = 9876
+pin:
+9876
+
+================================================
+mini_bomb3
+
+0x55 = 0b1010101
+
+The result of the and must be equals to 65(0b1000001)
+
+_ _ _ _ _ _ _
+1 0 1 0 1 0 1
+
+      =
+
+1 0 0 0 0 0 1
+
+We conclude that it is any value in the format 1x0x0x1.
+
+Performing the xori with 0x41 (0b1000001) the result must be greater than 0
+
+1 _ 0 _ 0 _ 1
+1 0 0 0 0 0 1
+
+      =
+
+0 _ 0 _ 0 _ 0
+
+Having a 1 in at least one of the slots result in a true value
+
+pins:
+1000011 = 67
+1001001 = 73
+1001011 = 75
+1100001 = 97
+1100011 = 99
+1101001 = 105
+1101011 = 107
