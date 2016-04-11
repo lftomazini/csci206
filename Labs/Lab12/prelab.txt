@@ -1,3 +1,7 @@
+Luis Felipe Tomazini
+T 1pm
+Lab 12 - prelab.txt
+
 mini_bomb2
 
 negu negates the value in a0
