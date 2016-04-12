@@ -1,77 +1,13 @@
 Luis Felipe Tomazini
 T 1pm
-answers.txt
+Lab 11 - prelab.txt
 
-1.1 over1 When entering a string with more than 10 characters it prints the exact same string as input.
-    over2 When entering a string with more than 10 characters it prints truncating after the 9th character.
-    The buffer overflow risk was eliminated by using the fgets function, which has as an argument the size of the buffer.
+1.1 Stack smashing is a form of attack that exploits the stack segment of the memory. 
 
-1.2 It does not check for the size of the buffer, using only the scanf function. This way it might overwrite other data.
+1.2 Stack smashing is possible because if you write more than the space allocated for the buffer it will go to other regions in memory. It will go over the buffer and reach the return variable, eventually. By overwriting the return variable the program will point to another return address. This new return address may have malicious code, what makes the attack possible.
 
-1.3 The program must always check if the input string can be stored in the buffer. Must remember about the '\0' character. So for a buffer of size n, there must be a check if the input string is n-1 in size or smaller. If it is not the programmer must provide a solution, such as truncate or ask for another string.
+1.3 To disassemble machine code means to go from machine language to assembly language. E.g. 03a0f021 —- disassemble —-> move s8, sp
 
-1.4 To avoid buffer overflow it is possible to store only the characters that will fit in the buffer. So for a buffer of size n, the program can write only n-1 characters into the buffer. This guarantees that the buffer will contain only the number of characters possible, without overwriting other data.
+1.4 The code is different beacause of the instruction set architecture. On the paper they use x86. For our tests it is used MIPS. Thus the great difference is not the buffer1 + 24 vs. buffer1 + 12 but the ISA.
 
-2.1 main -> data
-    i    -> stack
-    j    -> stack
-    k    -> stack
-    buff -> stack
-
-2.2 The parameters are passed from right to left.
-    a    -> register
-    b    -> register
-    c    -> register
-    d    -> register
-    i    -> stack
-    j    -> stack
-
-2.3 The address of PC was 0x0x0040082c when the test function was called. The returun address after the test function is at PC + 8, as there is the nop, in this case 0x0x0040084.
-
-2.4 0x7f920ad0: 0x00
-    0x7f920ad1: 0x00
-    0x7f920ad2: 0x00
-    0x7f920ad3: 0x0b
-
-2.5 MIPS is a big endian machine
-
-2.6
-
-2.7 Segment     |    Start    |     Ends    | Description
-    ------------+-------------+-------------+-------------
-    j           | 0x7f92 0ad4 | 0x7f92 0ad7 | function argument
-    i           | 0x7f92 0ad0 | 0x7f92 0ad3 | function argument         
-    d           | 0x7f92 0acc | 0x7f92 0acf | function argument
-    c           | 0x7f92 0ac8 | 0x7f92 0acb | function argument
-    b           | 0x7f92 0ac4 | 0x7f92 0ac7 | function argument
-    a           | 0x7f92 0ac0 | 0x7f92 0ac3 | function argument
-    ra          | 0x7f92 0ab8 | 0x7f92 0abf | return address
-    ebf         | 0x7f92 0ab4 | 0x7f92 0ab7 | base pointer
-    k           | 0x7f92 0ab4 | 0x7f92 0ab4 | local variable
-    buf[11]     | 0x7f92 0ab3 | 0x7f92 0ab3 | temporary storage
-    buf[10]     | 0x7f92 0ab2 | 0x7f92 0ab2 | temporary storage
-    buf[9]      | 0x7f92 0ab1 | 0x7f92 0ab1 | temporary storage
-    buf[8]      | 0x7f92 0ab0 | 0x7f92 0ab0 | temporary storage
-    buf[7]      | 0x7f92 0aaf | 0x7f92 0aaf | temporary storage
-    buf[6]      | 0x7f92 0aae | 0x7f92 0aae | temporary storage
-    buf[5]      | 0x7f92 0aad | 0x7f92 0aad | temporary storage
-    buf[4]      | 0x7f92 0aac | 0x7f92 0aac | temporary storage
-    buf[3]      | 0x7f92 0aab | 0x7f92 0aab | temporary storage
-    buf[2]      | 0x7f92 0aaa | 0x7f92 0aaa | temporary storage
-    buf[1]      | 0x7f92 0aa9 | 0x7f92 0aa9 | temporary storage
-    buf[0]      | 0x7f92 0aa8 | 0x7f92 0aa8 | temporary storage
-
-2.8 It must overwrite the content of the return address so that it can jump to an arbitrary address.
-
-2.9 The injected code will end up in the stack segment, more specifically in the buffer.
-
-2.10 The processor firstly calculates the size necessary for the text segment. It is the size of the code contained in the program. Later it allocates space for the global variables in the data segment.
-Then, it reserves the other space to the heap and stack. The heap gets the lower memory addresses available and the stack gets the higher memory address available. The processor knows, after doing this calculations, the boundaries of each memory segment. The processor will not try to execute code that is outside the text segment. Also, it will not try to manipulate data in text. This is valid because the processor is aware of the boundaries.
-
-2.11 It is possible to confirm that after adding the keyword “static” buf is in data and no longer in stack, because of the memory address it is located. Previously, it had address close to 0x7fff ffff which is clearly the stack segment. With the keyword static the addresses are closer to 0x0040 0000 which is the segment for data, as the values are smaller.
-
-2.12 It is possible to produce buffer overflows in other areas, not only on the stack. But it will not be able to change the return address. That occurs because systems prevent crossing data.
-
-3.1 strcpy is a function that does not check for the boundaries. It is a function that can be easily used to cause an overflow. Using a buffer of fixed size on the stack is another severe problem as if the programmer is not careful it can overwrite the return address.
-
-3.2 Not checking for the boundaries of a variable can lead to overwriting data stored in other parts. It is a serious problems when it overwrites the return address which points to a malicious code. The programmer should use function that do not have the property of overflow and always check the boundaries when writing in a variable. The buffer should be placed on the data segment instead of on the stack segment, as it will prevent from changing the return address.
+1.5 The function ‘function’ overwrote the return address of the main, now it is returning 0 instead of the expected value of 1.
