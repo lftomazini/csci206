@@ -2,7 +2,7 @@ Luis Felipe Tomazini
 T 1pm
 answers.txt
 
-1.1 over1 When entering a string with more than 10 characters it prints the exact sanme string as input.
+1.1 over1 When entering a string with more than 10 characters it prints the exact same string as input.
     over2 When entering a string with more than 10 characters it prints truncating after the 9th character.
     The buffer overflow risk was eliminated by using the fgets function, which has as an argument the size of the buffer.
 
@@ -33,15 +33,54 @@ answers.txt
     0x7f920ad2: 0x00
     0x7f920ad3: 0x0b
 
-2.5 MIPS is a big endian machine
+2.5 MIPS is a big endian machine, because the most significant byte is stored in the smallest address and the least significant byte (0x0b) is in the largest address.
 
-2.6
+2.6 A program can be created to identify the endianness of the processor. We firstly need to declare a integer variable initialized with 1. It will work as our boolean verifier. Then, we create a character pointer. It has the size of 1 byte and will have only the first byte of integer. If it is a little endian processor the pointer will have the value 1 stored, otherwise it will have the value 0 and is a big endian.
 
-2.7 Segment     |    Start    |     End     |     Size
+Example in code:
+
+unsigned int verifier = 1;
+char *pointer = (char*)&verifier;
+if (*pointer)
+    printf("Little endian");
+else
+    printf("Big endian");
+
+2.7 Segment     |    Start    |     Ends    | Description
     ------------+-------------+-------------+-------------
-    Stack       | 0x7fff ff86 | 0x7fff ffff | 0x0000 007a
-    Heap        |             |             |
-    Data        | 0x0040 0100 | 0x0040 0760 | 0x0000 0198
-    Text        | 0x0040 0000 | 0x0040 00ff | 0x0000 0100
+    j           | 0x7f92 0ad4 | 0x7f92 0ad7 | function argument
+    i           | 0x7f92 0ad0 | 0x7f92 0ad3 | function argument         
+    d           | 0x7f92 0acc | 0x7f92 0acf | function argument
+    c           | 0x7f92 0ac8 | 0x7f92 0acb | function argument
+    b           | 0x7f92 0ac4 | 0x7f92 0ac7 | function argument
+    a           | 0x7f92 0ac0 | 0x7f92 0ac3 | function argument
+    ra          | 0x7f92 0ab8 | 0x7f92 0abf | return address
+    ebf         | 0x7f92 0ab4 | 0x7f92 0ab7 | base pointer
+    k           | 0x7f92 0ab4 | 0x7f92 0ab4 | local variable
+    buf[11]     | 0x7f92 0ab3 | 0x7f92 0ab3 | temporary storage
+    buf[10]     | 0x7f92 0ab2 | 0x7f92 0ab2 | temporary storage
+    buf[9]      | 0x7f92 0ab1 | 0x7f92 0ab1 | temporary storage
+    buf[8]      | 0x7f92 0ab0 | 0x7f92 0ab0 | temporary storage
+    buf[7]      | 0x7f92 0aaf | 0x7f92 0aaf | temporary storage
+    buf[6]      | 0x7f92 0aae | 0x7f92 0aae | temporary storage
+    buf[5]      | 0x7f92 0aad | 0x7f92 0aad | temporary storage
+    buf[4]      | 0x7f92 0aac | 0x7f92 0aac | temporary storage
+    buf[3]      | 0x7f92 0aab | 0x7f92 0aab | temporary storage
+    buf[2]      | 0x7f92 0aaa | 0x7f92 0aaa | temporary storage
+    buf[1]      | 0x7f92 0aa9 | 0x7f92 0aa9 | temporary storage
+    buf[0]      | 0x7f92 0aa8 | 0x7f92 0aa8 | temporary storage
 
+2.8 It must overwrite the content of the return address so that it can jump to an arbitrary address.
 
+2.9 The injected code will end up in the stack segment, more specifically in the buffer.
+
+2.10 The processor firstly calculates the size necessary for the text segment. It is the size of the code contained in the program. Later it allocates space for the global variables in the data segment.
+Then, it reserves the other space to the heap and stack. The heap gets the lower memory addresses available and the stack gets the higher memory address available. The processor knows, after doing this calculations, the boundaries of each memory segment. The processor will not try to execute code that is outside the text segment. Also, it will not try to manipulate data in text. This is valid because the processor is aware of the boundaries.
+
+2.11 It is possible to confirm that after adding the keyword “static” buf is in data and no longer in stack, because of the memory address it is located. Previously, it had address close to 0x7fff ffff which is clearly the stack segment. With the keyword static the addresses are closer to 0x0040 0000 which is the segment for data, as the values are smaller.
+
+2.12 It is possible to produce buffer overflows in other areas, not only on the stack. But it will not be able to change the return address. That occurs because systems prevent crossing data.
+
+3.1 strcpy is a function that does not check for the boundaries. It is a function that can be easily used to cause an overflow. Using a buffer of fixed size on the stack is another severe problem as if the programmer is not careful it can overwrite the return address.
+
+3.2 Not checking for the boundaries of a variable can lead to overwriting data stored in other parts. It is a serious problems when it overwrites the return address which points to a malicious code. The programmer should use function that do not have the property of overflow and always check the boundaries when writing in a variable. The buffer should be placed on the data segment instead of on the stack segment, as it will prevent from changing the return address.
