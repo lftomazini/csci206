@@ -1,0 +1,17 @@
+Spreadsheets used for analysis can be fount at http://tinyurl.com/csci206-Lab14
+
+2.1 When the block size increases from 8 to 64 the number of demanded misses decreases from 311,262 to 241,569. The conflict misses, on the other hand, increases because with a constant cache size, when the block size increases, the number of indexes decreases, resulting in more conflicts.  The principle responsible for this effect is the spatial locality.
+
+2.2 By doubling the size of the cache the number of demanded misses decreases almost 40% from 311,262 to 189,631. This happens because there is more space to put the data in the cache by the concept of spatial locality.
+
+2.3 The number of compulsory misses do not change by increasing the size of the cache. The amount of capacity misses decreases as the cache size increases. When the cache size is 256k the number of capacity misses reaches 0. The sum of conflict misses with capacity misses always decreases as the cache size increases.
+
+2.4 By changing the number of associativity sets from a 2-way to a 4-way the number of conflict misses has a significant increase. This happens in this case because the cache size is small. By doubling the number of sets the number of conflict misses increases at the same rate.
+
+2.5 By increasing the cache size the amount of conflict misses decreases when we have a 4-way set associativity. This occurs because the data is less clustered in the 2-way set and when it changes to a 4-way set the data will not become clustered because the cache size is big.
+
+3 By changing the size of the cache and the block size it was possible to construct the table on sheet 3. It is noticeable that there must be a relation between these 2 attributes for an optimal block size and miss rate. In this case, we want the minimal block size in order to minimize the miss rate. A block size of 64 with a cache size of 4k gives a miss rate of 19.43%. But if we increase the cache size to 64k the miss rate drops to 0.32%. Lower miss rates can be achieved, but to do so we need to increase the cache size to 256k and the block size to 256. In my opinion, the optimal block size would be of 64 with a cache of 64k.
+
+Changing that the associative set size is not 1, but 2 or 4 words per block decreases the miss rate to 0.20%. It decreases in approximatelly 1/3 the miss rate, but the values found for 1 associative set are already really low. Performing that analysis, the ideal associative set size is a 1 word per block.
+
+We can conclude that the miss rate increases if the block size is too large relative to the cache size. There are multiple implementations relative to the block size, cache size, associativity set size and so on that will lead to similar miss rates, but there is not a perfect one.
